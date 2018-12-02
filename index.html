@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="pqrApp">
+<head>
+  <title>PQR - Dashboard</title>
+  <script src="js/lib/angular.min.js"></script>
+  <script src="js/app.js"></script>
+</head>
+
+<body>
+
+<div ng-if="!classroom">
+  <h1>Professor Que Responde - Dashboard</h1>
+</div>
+<div ng-if="classroom">
+  <h1>Turma {{ classroom.name }}</h1>
+</div>
+
+<br>
+
+<div ng-controller="classroomController" ng-if="!classroom">
+  <h2>Efetue o login ou crie uma nova turma</h2>
+  <br>
+  <div>
+    <h3>Criar nova turma</h3>
+    <p>Nome: <input type="text" ng-model="newClassroomName"></p>
+    <p>Código: <input type="text" ng-model="newClassroomCode"></p>
+    <p>Senha: <input type="password" ng-model="newClassroomPassword"></p>
+    <button ng-click="addClassroom()">Criar</button>
+  </div>
+  <br>
+  <div>
+    <h3>Login em turma existente</h3>
+    <p>Senha: <input type="password" ng-model="password"></p>
+    <button ng-click="getClassroom()">Login</button>
+  </div>
+</div>
+
+<br>
+
+<div ng-controller="docController" ng-if="classroom">
+  <h2>Documentos</h2>
+  <br>
+  <div>
+    <h3>Adicionar novo documento</h3>
+    <p>Título: <input type="text" ng-model="newDocTitle"></p>
+    <p>URL: <input type="text" ng-model="newDocUrl"></p>
+    <p>tags: <input placeholder="separar por ';'" type="text" ng-model="newDocTags"></p>
+    <button ng-click="addDoc()">Adicionar</button>
+  </div>
+  <br>
+  <div>
+    <h3>Lista de documentos cadastrados</h3>
+    <div ng-repeat="doc in docs">
+      <a target="_blank" rel="noopener noreferrer" href="{{ doc.url }}"><p>{{ doc.title }}</p></a>
+    </div>
+  </div>
+</div>
+
+<br>
+
+<div ng-controller="scheduleController" ng-if="classroom">
+  <h2>Cronograma</h2>
+  <br>
+  <div>
+      <h3>Adicionar nova atividade</h3>
+      <p>Data: <input type="date" ng-model="newScheduleDate"></p>
+      <p>Descrição: <input type="text" ng-model="newScheduleDescription"></p>
+      <button ng-click="addActivity()">Adicionar</button>
+    </div>
+    <br>
+    <div>
+      <h3>Lista de atividades</h3>
+      <div ng-repeat="activity in activities">
+        <p>{{ activity.date }} - {{ activity.description }}</p>
+      </div>
+    </div>
+</div>
+
+<br>
+
+<div ng-controller="studentController" ng-if="classroom">
+  <h2>Alunos</h2>
+  <br>
+  <div>
+      <h3>Adicionar novo aluno</h3>
+      <p>Nome: <input type="text" ng-model="newStudentName"></p>
+      <p>Senha: <input type="password" ng-model="newStudentPassword"></p>
+      <button ng-click="addStudent()">Adicionar</button>
+    </div>
+    <br>
+    <div>
+      <h3>Lista de alunos</h3>
+      <div ng-repeat="student in students">
+        <p>{{ student.name }}</p>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
