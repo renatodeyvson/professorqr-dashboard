@@ -3,7 +3,7 @@ angular.module('pqrApp', [])
 
         $scope.getClassroom = () => {
             
-            $http.get('http://localhost:3000/classrooms/'+$scope.password).then((response) => {
+            $http.get('https://professorqr-api.herokuapp.com/classrooms/'+$scope.password).then((response) => {
                 
                 $rootScope.classroom = response.data[0];
 
@@ -13,7 +13,7 @@ angular.module('pqrApp', [])
 
         $scope.addClassroom = () => {
             
-            $http.post('http://localhost:3000/classrooms', {
+            $http.post('https://professorqr-api.herokuapp.com/classrooms', {
                 name: $scope.newClassroomName,
                 code: $scope.newClassroomCode,
                 password: $scope.newClassroomPassword
@@ -28,7 +28,7 @@ angular.module('pqrApp', [])
     })
     .controller('docController', ($scope, $http, $rootScope) => {
 
-        if($rootScope.classroom) $http.get('http://localhost:3000/docs/'+$rootScope.classroom.code).then((response) => {
+        if($rootScope.classroom) $http.get('https://professorqr-api.herokuapp.com/docs/'+$rootScope.classroom.code).then((response) => {
                 
             $scope.docs = response.data;
 
@@ -36,7 +36,7 @@ angular.module('pqrApp', [])
 
         $scope.addDoc = () => {
 
-            $http.post('http://localhost:3000/docs', {
+            $http.post('https://professorqr-api.herokuapp.com/docs', {
                 title: $scope.newDocTitle,
                 url: $scope.newDocUrl,
                 tags: $scope.newDocTags,
@@ -52,7 +52,7 @@ angular.module('pqrApp', [])
     })
     .controller('scheduleController', ($scope, $http, $rootScope) => {
         
-        if($rootScope.classroom) $http.get('http://localhost:3000/schedules/'+$rootScope.classroom.code).then((response) => {
+        if($rootScope.classroom) $http.get('https://professorqr-api.herokuapp.com/schedules/'+$rootScope.classroom.code).then((response) => {
                 
             $scope.activities = response.data[0].activities;
 
@@ -65,7 +65,7 @@ angular.module('pqrApp', [])
                 description: $scope.newScheduleDescription
             });
 
-            $http.put('http://localhost:3000/schedules', {
+            $http.put('https://professorqr-api.herokuapp.com/schedules', {
                 old_classroom: $rootScope.classroom.code,
                 classroom: $rootScope.classroom.code,
                 activities: $scope.activities
@@ -76,7 +76,7 @@ angular.module('pqrApp', [])
     })
     .controller('studentController', ($scope, $http, $rootScope) => {
         
-        if($rootScope.classroom) $http.get('http://localhost:3000/students/'+$rootScope.classroom.code).then((response) => {
+        if($rootScope.classroom) $http.get('https://professorqr-api.herokuapp.com/students/'+$rootScope.classroom.code).then((response) => {
                 
             $scope.students = response.data;
 
@@ -84,7 +84,7 @@ angular.module('pqrApp', [])
 
         $scope.addStudent = () => {
 
-            $http.post('http://localhost:3000/students', {
+            $http.post('https://professorqr-api.herokuapp.com/students', {
                 name: $scope.newStudentName,
                 classroom: $rootScope.classroom.code,
                 password: $scope.newStudentPassword
